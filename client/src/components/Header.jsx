@@ -2,12 +2,16 @@ import React, { useState, useEffect } from "react";
 import icon from "../assets/bb.jpg";
 import { CiSearch } from "react-icons/ci";
 import { useNavigate } from "react-router-dom";
+import api from "./axiosConfig";
+import { logout } from "../redux/authSlice";
+import { useDispatch } from "react-redux";
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState("");
   const items = ["Home", "Features", "My Interests", "Market News", "Support"];
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
+  const dispatch = useDispatch(); 
 
   const [scrollPosition, setScrollPosition] = useState(0);
   const [isVisible, setIsVisible] = useState(true);
@@ -37,6 +41,15 @@ const Header = () => {
     } 
   }
 
+  const handleLogout = async () => {
+    await api.post('/api/user/logout').then(() => {
+      dispatch(logout());
+    }).catch((err) => {
+      console.log(err)
+      alert('an erroe occured')
+    })
+  }
+
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
@@ -48,7 +61,7 @@ const Header = () => {
       <div className="flex items-center gap-3 justify-between mx-3 mr-20">
         {/* Branding */}
         <div className="flex items-center space-x-2 p-2">
-          <img src={icon} alt="Stonks Logo" className="h-[70px]" />
+          <img src={icon} alt="Logo" className="h-[40px] md:h-[70px]" />
           <h1 className="text-4xl font-bold">BullBear</h1>
         </div>
 
@@ -76,6 +89,11 @@ const Header = () => {
           <CiSearch/>
           </div>
         </form>
+
+        <button className="bg-red-700 hidden md:flex rounded-lg hover:bg-red-500 p-2"
+        onClick={() => handleLogout()}>
+          Logout
+        </button>
 
         {/* Mobile Menu Button */}
         <button
@@ -116,6 +134,8 @@ const Header = () => {
                 {item}
               </button>
             ))}
+            <button className="bg-red-700 p-2 rounded-lg hover:bg-red-500" onClick={() => handleLogout()}>
+              Logout</button>
           </nav>
           <form action="search" className="flex justify-center bg-white p-1 items-center rounded-md text-black border-2 border-orange-500">
           <input type="text" placeholder="Search Company." className="rounded-md p-1"/>
