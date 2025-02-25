@@ -1,13 +1,14 @@
 // src/App.js
 import { useSelector } from 'react-redux';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Company from "./components/company";
 import Footer from "./components/Footer";
 import Home from "./components/Home";
 import Header from "./components/Header";
 import Support from "./components/Support";
 import News from "./components/News";
 import Login from "./components/Login";
+import Company from './components/Company';
+import MyProfile from './components/MyProfile';
 
 function App() {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
@@ -24,6 +25,7 @@ function App() {
           <Route path="/company/:ticker" element={<Company />} />
           <Route path="/support" element={<Support />} />
           <Route path="/market news" element={<News />} />
+          <Route path="/my profile" element={<MyProfile/>} />
         </Routes>
         <Footer />
       </Router>

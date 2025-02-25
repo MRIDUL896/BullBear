@@ -11,7 +11,7 @@ const News = () => {
             try {
                 const response = await api.get('/api/stock/news');
                 setNews(response.data.body);
-                console.log(response.data.body);
+                // console.log(response.data.body);
             } catch (err) {
                 console.error("Error fetching trending news:", err);
             } finally {

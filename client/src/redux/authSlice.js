@@ -8,17 +8,19 @@ const authSlice = createSlice({
   },
   reducers: {
     loginSuccess: (state,action) => {
-      console.log(action.payload)
       state.userInfo = action.payload
       state.isLoggedIn = true;
     },
     logout: (state) => {
       state.userInfo = null
       state.isLoggedIn = false;
+    },
+    addSymbol: (state, action) => {
+      state.userInfo.user.interestedStocks = [...new Set([...state.userInfo.user.interestedStocks, action.payload])];
     }
   },
 });
 
-export const { loginSuccess, logout , updatePage } = authSlice.actions;
+export const { loginSuccess, logout , updatePage , addSymbol} = authSlice.actions;
 
 export default authSlice.reducer;

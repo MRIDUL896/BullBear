@@ -95,4 +95,19 @@ const handleLogout = async (req, res) => {
     }
 };
 
-module.exports = { handleSignup, handleLogin , handleLogout, handleGoogleLogin};
+const addSymbol = async (req,res) => {
+    try{
+        const {uid,symbols} = req.body;
+        let user = await User.findOne({ uid });
+        if(!user){
+            return res.status(500).json({ error: error.message });
+        }
+        user.interestedStocks = symbols;
+        await user.save();
+        res.status(200).json({message : 'success'});
+    }catch(err){
+        res.status(500).json({ error: err });
+    }
+}
+
+module.exports = { handleSignup, handleLogin , handleLogout, handleGoogleLogin, addSymbol};

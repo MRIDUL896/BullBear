@@ -56,6 +56,28 @@ const searchStock = async (req, res) => {
     }
 };
 
+const getStockIcons = async (req, res) => {
+    try {
+        const { symbols } = req.body;
+
+        if (!symbols || !Array.isArray(symbols)) {
+            return res.status(400).json({ error: "Invalid symbols format" });
+        }
+
+        let icons = symbols.map(symbol => 
+            `https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/${symbol}.png`
+        );
+
+        console.log(icons)
+
+        res.status(200).json({ icons });
+    } catch (err) {
+        console.error("Error fetching stock icons:", err);
+        res.status(500).json({ error: "Failed to fetch stock icons" });
+    }
+};
+
+
 const getStockInfo = async (req,res) => {
     const {symbol} = req.params;
     try{
@@ -147,4 +169,4 @@ const getNews = async (req, res) => {
     }
 };
 
-module.exports = {getTrendingStocks,searchStock,getStockHistory,getStockInfo,getNews}
+module.exports = {getTrendingStocks,searchStock,getStockHistory,getStockInfo,getNews,getStockIcons}

@@ -1,7 +1,6 @@
-// src/components/Login.js
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { loginSuccess } from '../redux/authSlice';
+import { loginSuccess} from '../redux/authSlice';
 import api from './axiosConfig';
 import { auth , signInWithEmailAndPassword, createUserWithEmailAndPassword,signupWithGoogle} from '../firebase'; // Import firebase auth
 import googleIcon from '../assets/google.png'
@@ -26,6 +25,7 @@ const Login = () => {
         const userCredential = await signInWithEmailAndPassword(auth,formData.email, formData.password);
         const idToken = await userCredential.user.getIdToken();
         const user = await api.post('/api/user/login', { idToken });
+        // console.log(user.data)
         dispatch(loginSuccess(user.data.user));
       } else {
         await createUserWithEmailAndPassword(auth,formData.email, formData.password);
@@ -47,7 +47,8 @@ const Login = () => {
       const { user, idToken } = await signupWithGoogle();
       const {displayName:name , email} = user
       const response = await api.post('/api/user/google-login', { idToken,name,email });
-      dispatch(loginSuccess(response.data.user));
+      // console.log(response.data)
+      dispatch(loginSuccess(response.data));
     } catch (error) {
       alert("Google Sign-In failed. Please try again.");
     }

@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const { type } = require('server/reply');
 
 const userSchema = new mongoose.Schema({
   name: {
@@ -24,10 +23,17 @@ const userSchema = new mongoose.Schema({
     required : true
   },
   interestedStocks: {
-    type : Array
+    type: [String],
+    default: [],
   }
 },{
     timestamps : true
+});
+
+// Middleware to remove duplicates before saving
+userSchema.pre("save", function (next) {
+  this.interestedStocks = [...new Set(this.interestedStocks)];
+  next();
 });
 
 

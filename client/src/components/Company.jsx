@@ -2,19 +2,40 @@ import { useEffect, useState } from "react";
 import api from "./axiosConfig";
 import { useParams } from "react-router-dom";
 import CompanyCharts from "./CompanyCharts";
+import { useDispatch } from "react-redux";
+import { addSymbol } from "../redux/authSlice";
+import { useSelector } from "react-redux";
 
 const Company = () => {
     const { ticker } = useParams();
     const [companyInfo, setCompanyInfo] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [interval, setInterval] = useState("1d"); // Default interval
+    const dispatch = useDispatch();
+    const userinfo = useSelector((state) => state.auth.userInfo.user);
+
+
+    const addToList = async (symbol) => {
+        const symbols = userinfo.interestedStocks;
+        symbols.forEach((ticker) => {
+            if(ticker == symbol){
+                alert('Already added')
+                return;
+            }
+        });
+
+        dispatch(addSymbol(symbol));
+        const uid = userinfo.uid;
+        await api.put('/api/user/addSymbol',{uid,symbols});
+    }
 
     useEffect(() => {
         const getData = async () => {
             setIsLoading(true);
             try {
+                console.log(userinfo)
                 const res = await api.get(`/api/stock/stockInfo/${ticker}`);
-                console.log(res.data);
+                // console.log(res.data);
                 setCompanyInfo(res.data);
             } catch (err) {
                 console.error("Error fetching stock info", err);
@@ -51,6 +72,13 @@ const Company = () => {
                     alt="Company Logo"
                     className="w-32 h-32 rounded-full mx-auto mb-6 border-4 border-gray-700"
                 />
+            </div>
+
+            <div className="flex flex-col items-center">
+                <button className="bg-red-600 my-2 hover:bg-red-800 text-white font-semibold py-2 px-4 rounded-lg transition duration-300 ease-in-out shadow-lg mx-auto"
+                    onClick={() => addToList(ticker)}>
+                    I'm interested
+                </button>
             </div>
 
             {/* Company Details */}
