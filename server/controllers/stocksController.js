@@ -68,8 +68,6 @@ const getStockIcons = async (req, res) => {
             `https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/${symbol}.png`
         );
 
-        console.log(icons)
-
         res.status(200).json({ icons });
     } catch (err) {
         console.error("Error fetching stock icons:", err);

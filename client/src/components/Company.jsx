@@ -23,17 +23,17 @@ const Company = () => {
                 return;
             }
         });
-
+        // console.log(symbols);
         dispatch(addSymbol(symbol));
         const uid = userinfo.uid;
-        await api.put('/api/user/addSymbol',{uid,symbols});
+        await api.put('/api/user/addSymbol',{uid,symbol});
     }
 
     useEffect(() => {
         const getData = async () => {
             setIsLoading(true);
             try {
-                console.log(userinfo)
+                // console.log(userinfo)
                 const res = await api.get(`/api/stock/stockInfo/${ticker}`);
                 // console.log(res.data);
                 setCompanyInfo(res.data);
