@@ -8,11 +8,14 @@ const generateTokenAndSetCookie = require("../utils/generateToken");
 dotenv.config();
 
 //Firebase Admin SDK
-const serviceAccount = require("../config/bullbear-b549e-firebase-adminsdk-fbsvc-55faece315.json");
+const serviceAccount = JSON.parse(
+  Buffer.from(process.env.FIREBASE_CONFIG_BASE64, "base64").toString("utf8")
+);
 
 admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount),
+  credential: admin.credential.cert(serviceAccount),
 });
+
 
 const handleSignup = async (req, res) => {
     try {
