@@ -8,7 +8,7 @@ import { useDispatch } from "react-redux";
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [selectedItem, setSelectedItem] = useState("");
+  const [selectedItem, setSelectedItem] = useState("Home");
   const [searchQuery, setSearchQuery] = useState("");
   const items = ["Home", "My Profile", "Market News", "Support"];
   const navigate = useNavigate();
