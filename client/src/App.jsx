@@ -21,7 +21,7 @@ function App() {
         {!isLoggedIn && <Login />}  {/* Show login only if not logged in */}
         <div className="p-20 bg-gray-950"></div>
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/BullBear" element={<Home />} />
           <Route path="/home" element={<Home />} />
           <Route path="/company/:ticker" element={<Company />} />
           <Route path="/support" element={<Support />} />
