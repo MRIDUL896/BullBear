@@ -12,15 +12,19 @@ const app = express();
 database();
 
 app.use(cookieSession({
-    name: "session",
-    keys: [process.env.SESSION_SECRET || 'default_secret_key'], // Add a secret key
-    maxAge: 24 * 60 * 60 * 1000 // Corrected maxAge to 1 day (previously 100ms)
+  name: "session",
+  keys: [process.env.SESSION_SECRET || 'default_secret_key'],
+  maxAge: 24 * 60 * 60 * 1000,
+  sameSite: 'none',
+  secure: true
 }));
+
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 const allowedOrigins = [
-  'https://mridul896.github.io'
+  'https://mridul896.github.io',
+  'https://mridul896.github.io/BullBear'
 ];
 app.use(cors({
   origin: function(origin, callback) {
