@@ -19,9 +19,18 @@ app.use(cookieSession({
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+const allowedOrigins = [
+  'https://mridul896.github.io'
+];
 app.use(cors({
-    origin: process.env.CLIENT_URL, // Allow requsts from this origin
-    credentials: true, // Allow credentials (cookies, etc.)
+  origin: function(origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true
 }));
 
 app.use('/api/stock', stockRoute);
