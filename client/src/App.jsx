@@ -15,7 +15,7 @@ function App() {
 
   return (
     <div className="bg-gray-950 px-4 pb-4 h-full">
-      <BrowserRouter basename="/BullBear">
+      <BrowserRouter basename="/">
         <Header />
         {!isLoggedIn && <Login />}
         <div className="p-20 bg-gray-950"></div>
