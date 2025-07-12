@@ -15,8 +15,8 @@ const Support = () => {
       answer: "You can contact support via the 'Contact Us' section or by using the live chat option."
     },
     {
-      question: "Where can I see my game history?",
-      answer: "Your game history is available in the 'History' section of your profile."
+      question: "Where can I see my staocks of interest?",
+      answer: "Your interested stacks are available in the 'My Profile' section."
     },
   ];
 
@@ -56,16 +56,8 @@ const Support = () => {
         return (
           <div>
             <h2 className="text-2xl font-bold mb-4 text-blue-300">Contact Support</h2>
-            <p className="mb-2"><FaEnvelope className="inline-block mr-2 text-yellow-400" /> Email: support@gameble.com</p>
-            <p className="mb-2"><FaPhoneAlt className="inline-block mr-2 text-green-400" /> Phone: +1 800 123 4567</p>
-          </div>
-        );
-      case "liveChat":
-        return (
-          <div>
-            <h2 className="text-2xl font-bold mb-4 text-blue-300">Live Chat</h2>
-            <p className="text-gray-300">Our support agents are available 24/7. Click the button below to start a live chat session.</p>
-            <button className="mt-4 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-500 transition-colors">Start Live Chat</button>
+            <p className="mb-2"><FaEnvelope className="inline-block mr-2 text-yellow-400" /> Email: support@bullbear.com</p>
+            <p className="mb-2"><FaPhoneAlt className="inline-block mr-2 text-green-400" /> Phone: +91 xxxxxxxxxx</p>
           </div>
         );
       default:
@@ -88,12 +80,6 @@ const Support = () => {
           onClick={() => setSelectedOption("contact")}
         >
           <FaEnvelope className="inline-block mr-2" /> Contact
-        </button>
-        <button
-          className={`px-4 py-2 hover:bg-green-500 rounded ${selectedOption === "liveChat" ? "bg-blue-500 text-white" : "bg-gray-600 text-gray-300"}`}
-          onClick={() => setSelectedOption("liveChat")}
-        >
-          <FaHeadset className="inline-block mr-2" /> Live Chat
         </button>
       </div>
       <div className="support-content">

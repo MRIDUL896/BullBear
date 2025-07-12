@@ -9,6 +9,7 @@ import News from "./components/News";
 import Login from "./components/Login";
 import Company from './components/Company';
 import MyProfile from './components/MyProfile';
+import SearchResults from './components/SearchResults';
 
 function App() {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
@@ -26,6 +27,7 @@ function App() {
           <Route path="/support" element={<Support />} />
           <Route path="/market news" element={<News />} />
           <Route path="/my profile" element={<MyProfile/>} />
+          <Route path="/search" element={<SearchResults/>} />
         </Routes>
         <Footer />
       </Router>

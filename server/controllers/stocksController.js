@@ -49,6 +49,7 @@ const searchStock = async (req, res) => {
         })
 
         // Send the response data as JSON to the client
+        // console.log(response.data.body);
         res.json(response.data.body);
     } catch (error) {
         console.error('Error searching stock:', error);
