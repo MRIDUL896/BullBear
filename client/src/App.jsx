@@ -1,6 +1,5 @@
-// src/App.js
 import { useSelector } from 'react-redux';
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Footer from "./components/Footer";
 import Home from "./components/Home";
 import Header from "./components/Header";
@@ -16,21 +15,21 @@ function App() {
 
   return (
     <div className="bg-gray-950 px-4 pb-4 h-full">
-      <Router>
+      <BrowserRouter basename="/BullBear">
         <Header />
-        {!isLoggedIn && <Login />}  {/* Show login only if not logged in */}
+        {!isLoggedIn && <Login />}
         <div className="p-20 bg-gray-950"></div>
         <Routes>
-          <Route path="/BullBear" element={<Home />} />
+          <Route path="/" element={<Home />} />
           <Route path="/home" element={<Home />} />
           <Route path="/company/:ticker" element={<Company />} />
           <Route path="/support" element={<Support />} />
           <Route path="/market news" element={<News />} />
-          <Route path="/my profile" element={<MyProfile/>} />
-          <Route path="/search" element={<SearchResults/>} />
+          <Route path="/my profile" element={<MyProfile />} />
+          <Route path="/search" element={<SearchResults />} />
         </Routes>
         <Footer />
-      </Router>
+      </BrowserRouter>
     </div>
   );
 }
