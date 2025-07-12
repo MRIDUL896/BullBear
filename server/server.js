@@ -25,7 +25,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const allowedOrigins = [
   'https://mridul896.github.io',
   'https://mridul896.github.io/BullBear',
-  'https://bullbear-zctw.onrender.com/'
+  'https://bullbear-zctw.onrender.com'
 ];
 app.use(cors({
   origin: function(origin, callback) {
