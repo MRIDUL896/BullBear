@@ -11,12 +11,12 @@ const Trending = () => {
         const getData = async () => {
             setIsLoading(true);
             try {
-                const response = await api.get('/api/stock/trending');
-                setTrending(response.data.body);
+                await api.get('/api/stock/trending').then((res) => {
+                    setTrending(res.data.body);
+                    setIsLoading(false);
+                });
             } catch (err) {
                 console.error("Error fetching trending stocks:", err);
-            } finally {
-                setIsLoading(false);
             }
         };
         getData();
@@ -25,7 +25,9 @@ const Trending = () => {
     return (
         <div className="bg-gray-800 p-4 m-2 rounded-lg">
             {isLoading ? (
-                <div className="text-center text-white font-bold h-screen">Loading...</div>
+                <div className="text-center text-white font-bold h-screen">Loading...
+                <br />
+                (Might take upto a minute for first time)</div>
             ) : (
                 <div>
                     <h1 className="text-2xl font-bold mb-4 text-blue-300">Trending Stocks</h1>

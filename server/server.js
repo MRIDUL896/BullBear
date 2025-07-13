@@ -23,6 +23,7 @@ app.use(cookieSession({
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 const allowedOrigins = [
+  'http://localhost:5173',
   'https://mridul896.github.io',
   'https://mridul896.github.io/BullBear',
   'https://bullbear-zctw.onrender.com'
