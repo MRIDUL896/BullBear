@@ -141,6 +141,7 @@ const getStockHistory = async (req, res) => {
         response.close = close;
         response.high = high;
         response.low = low;
+        console.log(response);
         res.status(200).json(response);
     } catch (error) {
         console.error('Error fetching stock history:', error);
