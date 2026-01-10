@@ -12,6 +12,7 @@ const Trending = () => {
             setIsLoading(true);
             try {
                 await api.get('/api/stock/trending').then((res) => {
+                    console.log(res.data.body)
                     setTrending(res.data.body);
                     setIsLoading(false);
                 });
