@@ -7,40 +7,27 @@ const RAPID_API_KEY = process.env.RAPID_API_KEY
 
 const getTrendingStocks = async (req, res) => {
     try {
-        const response = await axios.get(
-            'https://yahoo-finance15.p.rapidapi.com/api/v1/markets/options/most-active',
-            {
-                params: { type: 'STOCKS' },
-                headers: {
-                    'x-rapidapi-key': RAPID_API_KEY,
-                    'x-rapidapi-host': 'yahoo-finance15.p.rapidapi.com',
-                },
-            }
-        );
+        // Fetch the most active stocks data from Yahoo Finance API
+        const response = await axios.get('https://yahoo-finance15.p.rapidapi.com/api/v1/markets/options/most-active', {
+            params: { type: 'STOCKS' },
+            headers: {
+                'x-rapidapi-key': RAPID_API_KEY,
+                'x-rapidapi-host': 'yahoo-finance15.p.rapidapi.com',
+            },
+        });
+        const trendingWithLogos = response.data.body;
 
-        const stocks =
-            response?.data?.body?.mostActiveStock;
+        trendingWithLogos.map((stock) => {
+            stock.icon = `https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/${stock.symbol}.png`
+        })
 
-        if (!Array.isArray(stocks)) {
-            console.error("Unexpected API response:", response.data);
-            return res.status(502).json({
-                error: "Invalid response from Yahoo Finance API",
-            });
-        }
-
-        const trendingWithLogos = stocks.map((stock) => ({
-            ...stock,
-            icon: `https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/${stock.symbol}.png`,
-        }));
-
+        // Send the trending stocks with their logos
         res.json({ body: trendingWithLogos });
-
     } catch (error) {
-        console.error('Error fetching most active options:', error.message);
+        console.error('Error fetching most active options:', error);
         res.status(500).json({ error: 'Failed to fetch most active options' });
     }
 };
-
 
 // Controller to handle the stock search
 const searchStock = async (req, res) => {
